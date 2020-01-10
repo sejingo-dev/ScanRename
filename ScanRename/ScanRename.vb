@@ -44,6 +44,10 @@
 
     '// 페이지 번호 수정
     Private Sub renewalPageNumner(ByVal pageNumber As Integer)
+        If ViewUtil.isNotSelectedItem(lv) Then
+            Exit Sub
+        End If
+
         Dim selIdx = ViewUtil.getSelectedIdxOne(lv)
 
         Dim loopCnt = -1
@@ -88,17 +92,21 @@
     Private Sub btnRename_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRename.Click
         Dim outDir = System.IO.Path.GetDirectoryName(SRC_FILE_LIST.Item(0).src_path)
 
-        If ckOddPage.Checked Then
-            outDir = outDir & "\" & "홀수"
-        Else
-            outDir = outDir & "\" & "짝수"
-        End If
+        'If ckOddPage.Checked Then
+        '    outDir = outDir & "\" & "홀수"
+        'Else
+        '    outDir = outDir & "\" & "짝수"
+        'End If
 
-        System.IO.Directory.Delete(outDir, True)
-        My.Computer.FileSystem.CreateDirectory(outDir)
+        'If System.IO.Directory.Exists(outDir) Then
+        '    System.IO.Directory.Delete(outDir, True)
+        'End If
+
+        'My.Computer.FileSystem.CreateDirectory(outDir)
 
         For Each pd As PageData In SRC_FILE_LIST
-            My.Computer.FileSystem.CopyFile(pd.src_path, outDir & "\" & Trim(pd.page_number) & ".jpg")
+            'My.Computer.FileSystem.CopyFile(pd.src_path, outDir & "\" & Trim(pd.page_number) & ".jpg")
+            My.Computer.FileSystem.RenameFile(pd.src_path, pd.page_number & ".jpg")
         Next
 
         lbLog.Text = "파일이름 변경완료"
@@ -114,7 +122,11 @@
         Dim selIdx = ViewUtil.getSelectedIdxOne(lv)
 
         Dim pd As PageData = SRC_FILE_LIST.Item(selIdx)
-        pic.Image = Bitmap.FromFile(pd.src_path)
+
+        Dim fs As System.IO.FileStream
+        fs = New System.IO.FileStream(pd.src_path, System.IO.FileMode.Open, System.IO.FileAccess.Read)
+        pic.Image = System.Drawing.Image.FromStream(fs)
+        fs.Close()
 
     End Sub
 

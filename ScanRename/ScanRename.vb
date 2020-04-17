@@ -58,16 +58,8 @@
                 Continue For
             End If
 
-
-
             pd.page_number = pageNumber.ToString("0000")
-            If ckOddPage.Checked Then
-                pageNumber = pageNumber + 2
-            Else
-                pageNumber = pageNumber - 2
-            End If
-
-
+            pageNumber = pageNumber + 2
 
         Next
 
@@ -83,10 +75,10 @@
 
     Private Sub ckEvenPage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ckEvenPage.CheckedChanged
         Dim lastNumber = SRC_FILE_LIST.Count * 2
-        lbLog.Text = lastNumber & "번 부터 짝수 페이지를 역순으로 적용합니다"
+        lbLog.Text = lastNumber & "번 부터 짝수 페이지를 자동 적용합니다"
         ViewUtil.setListViewFocus(lv, 0)
 
-        renewalPageNumner(lastNumber.ToString)
+        renewalPageNumner("2")
     End Sub
 
     Private Sub btnRename_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRename.Click

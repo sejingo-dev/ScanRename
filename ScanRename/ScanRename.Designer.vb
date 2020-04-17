@@ -22,6 +22,7 @@ Partial Class ScanRename
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ScanRename))
         Me.lv = New System.Windows.Forms.ListView()
         Me.btnFileChooser = New System.Windows.Forms.Button()
         Me.btnPageNumber = New System.Windows.Forms.Button()
@@ -137,6 +138,7 @@ Partial Class ScanRename
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.lv)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "ScanRename"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
